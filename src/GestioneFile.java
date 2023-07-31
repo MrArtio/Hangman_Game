@@ -5,38 +5,11 @@ public class GestioneFile {
     private final String nomeFileGiocatori = "src/dati/giocatori.txt";
     private final String nomeFileProgressi = "src/dati/progressi.txt";
     private final String nomeFileLingue = "src/dati/lingue.txt";
-
-    public void creaFileGiocatori() {
-        try {
-            File file = new File(nomeFileGiocatori);
-            if (file.createNewFile()) {
-                System.out.println("File dei giocatori creato: " + file.getName());
-            } else {
-                System.out.println("File dei giocatori già esistente.");
-            }
-        } catch (IOException e) {
-            System.err.println("Errore durante la creazione del file dei giocatori: " + e.getMessage());
-        }
-    }
-
-    public void creaFileProgressi() {
-        try {
-            File file = new File(nomeFileProgressi);
-            if (file.createNewFile()) {
-                System.out.println("File dei progressi creato: " + file.getName());
-            } else {
-                System.out.println("File dei progressi già esistente.");
-            }
-        } catch (IOException e) {
-            System.err.println("Errore durante la creazione del file dei progressi: " + e.getMessage());
-        }
-    }
-
     public void creaFileLingue() {
         try {
             File file = new File(nomeFileLingue);
             if (file.createNewFile()) {
-                System.out.println("File delle lingue creato: " + file.getName());
+                System.out.print("\nFile delle lingue creato: " + file.getName());
                 // Inizializza il file delle lingue con le lingue disponibili per il gioco
                 try (PrintWriter writer = new PrintWriter(new FileWriter(file))) {
                     writer.println("italiano");
@@ -45,13 +18,13 @@ public class GestioneFile {
                     writer.println("tedesco");
                     writer.println("russo");
                 } catch (IOException e) {
-                    System.err.println("Errore durante l'inizializzazione del file delle lingue: " + e.getMessage());
+                    System.err.print("\nErrore durante l'inizializzazione del file delle lingue: " + e.getMessage());
                 }
             } else {
-                System.out.println("File delle lingue già esistente.");
+                System.err.print("\nFile delle lingue già esistente.");
             }
         } catch (IOException e) {
-            System.err.println("Errore durante la creazione del file delle lingue: " + e.getMessage());
+            System.err.print("\nErrore durante la creazione del file delle lingue: " + e.getMessage());
         }
     }
 
@@ -59,7 +32,7 @@ public class GestioneFile {
         try (FileWriter fileWriter = new FileWriter(nomeFileGiocatori, true)) {
             fileWriter.write(nomeGiocatore + System.lineSeparator());
         } catch (IOException e) {
-            System.err.println("Errore durante il salvataggio del nome del giocatore: " + e.getMessage());
+            System.err.print("\nErrore durante il salvataggio del nome del giocatore: " + e.getMessage());
         }
     }
 
@@ -71,7 +44,7 @@ public class GestioneFile {
                 nomiGiocatori.add(nomeGiocatore);
             }
         } catch (IOException e) {
-            System.err.println("Errore durante il caricamento dei nomi dei giocatori: " + e.getMessage());
+            System.err.print("\nErrore durante il caricamento dei nomi dei giocatori: " + e.getMessage());
         }
         return nomiGiocatori;
     }
@@ -80,7 +53,7 @@ public class GestioneFile {
         try (FileWriter fileWriter = new FileWriter(nomeFileProgressi, true)) {
             fileWriter.write(nomeGiocatore + " " + punteggio + System.lineSeparator());
         } catch (IOException e) {
-            System.err.println("Errore durante il salvataggio del progresso del giocatore: " + e.getMessage());
+            System.err.print("\nErrore durante il salvataggio del progresso del giocatore: " + e.getMessage());
         }
     }
 
@@ -96,7 +69,7 @@ public class GestioneFile {
                 }
             }
         } catch (IOException e) {
-            System.err.println("Errore durante il caricamento del progresso del giocatore: " + e.getMessage());
+            System.err.print("\nErrore durante il caricamento del progresso del giocatore: " + e.getMessage());
         }
         return punteggio;
     }
@@ -109,7 +82,7 @@ public class GestioneFile {
                 lingueDisponibili.add(lingua);
             }
         } catch (IOException e) {
-            System.err.println("Errore durante il caricamento delle lingue disponibili: " + e.getMessage());
+            System.err.print("\nErrore durante il caricamento delle lingue disponibili: " + e.getMessage());
         }
         return lingueDisponibili;
     }

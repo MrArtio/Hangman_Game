@@ -60,7 +60,7 @@ public class Gioco {
                 writer.println(parola);
             }
         } catch (IOException e) {
-            e.printStackTrace();
+            System.err.print("\nErrore durante la scrittura del file delle parole: " + e.getMessage());
         }
     }
 

@@ -67,7 +67,7 @@ public class Lingua {
         if (traduzioni.containsKey(linguaScelta)) {
             linguaAttiva = linguaScelta;
         } else {
-            System.out.println("Lingua non supportata. La lingua attuale rimane invariata.");
+            System.out.print("\nLingua non supportata. La lingua attuale rimane invariata.");
         }
     }
 }
