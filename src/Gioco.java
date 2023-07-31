@@ -1,7 +1,5 @@
-import java.util.HashSet;
-import java.util.Random;
-import java.util.Scanner;
-import java.util.Set;
+import java.io.*;
+import java.util.*;
 
 public class Gioco {
     private String parolaSegreta;
@@ -15,14 +13,21 @@ public class Gioco {
     }
 
     private void inizializzaGioco() {
-        // Parole segrete per il gioco (puoi aggiungerne altre se desideri)
-        String[] paroleSegrete = {
-                "ciao", "gatto", "casa", "mare", "albero", "sole", "computer", "libro", "tavolo"
-        };
+        File fileParole = new File("src/dati/parole.txt");
+        List<String> parole = new ArrayList<>();
 
-        // Seleziona una parola segreta casualmente dalla lista
+        if (!fileParole.exists()) {
+            // Se il file non esiste, genera casualmente 10 parole e scrivile nel file
+            parole = generaParoleCasuali();
+            scriviParoleSuFile(fileParole, parole);
+        } else {
+            // Se il file esiste, leggi le parole dal file
+            parole = leggiParoleDaFile(fileParole);
+        }
+
+        // Seleziona una parola casualmente dalla lista
         Random random = new Random();
-        parolaSegreta = paroleSegrete[random.nextInt(paroleSegrete.length)].toLowerCase();
+        parolaSegreta = parole.get(random.nextInt(parole.size())).toLowerCase();
 
         // Inizializza le strutture dati per le lettere indovinate e le lettere errate
         lettereIndovinate = new HashSet<>();
@@ -35,6 +40,42 @@ public class Gioco {
         punteggio = 0;
     }
 
+    private List<String> generaParoleCasuali() {
+        List<String> paroleCasuali = new ArrayList<>();
+        // Puoi aggiungere altre parole a questa lista o caricarle da un file se lo desideri
+        List<String> paroleDisponibili = Arrays.asList("ciao", "gatto", "casa", "mare", "albero", "sole", "computer", "libro", "tavolo");
+
+        Random random = new Random();
+        for (int i = 0; i < 10; i++) {
+            int indiceCasuale = random.nextInt(paroleDisponibili.size());
+            paroleCasuali.add(paroleDisponibili.get(indiceCasuale));
+        }
+
+        return paroleCasuali;
+    }
+
+    private void scriviParoleSuFile(File file, List<String> parole) {
+        try (PrintWriter writer = new PrintWriter(file)) {
+            for (String parola : parole) {
+                writer.println(parola);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private List<String> leggiParoleDaFile(File file) {
+        List<String> parole = new ArrayList<>();
+        try (Scanner scanner = new Scanner(file)) {
+            while (scanner.hasNextLine()) {
+                parole.add(scanner.nextLine());
+            }
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+        return parole;
+    }
+
     public void gioca() {
         Scanner scanner = new Scanner(System.in);
         boolean giocoFinito = false;
@@ -42,35 +83,35 @@ public class Gioco {
         while (!giocoFinito) {
             mostraStatoGioco();
 
-            System.out.print("Inserisci una lettera: ");
+            System.out.print("\nInserisci una lettera: ");
             char lettera = scanner.next().toLowerCase().charAt(0);
 
             if (!Character.isLetter(lettera)) {
-                System.out.println("Inserire solo lettere valide.");
+                System.err.print("\nInserire solo lettere valide.");
                 continue;
             }
 
             if (lettereIndovinate.contains(lettera) || lettereErrate.contains(lettera)) {
-                System.out.println("Hai già inserito questa lettera. Riprova.");
+                System.err.print("\nHai già inserito questa lettera. Riprova.");
                 continue;
             }
 
             if (parolaSegreta.contains(String.valueOf(lettera))) {
                 lettereIndovinate.add(lettera);
-                System.out.println("Bravo! Hai indovinato una lettera.");
+                System.out.print("\nBravo! Hai indovinato una lettera.");
             } else {
                 lettereErrate.add(lettera);
-                System.out.println("Spiacente, la lettera non è presente nella parola.");
+                System.err.print("\nSpiacente, la lettera non è presente nella parola.\n");
                 tentativiRimasti--;
             }
 
             // Verifica se il gioco è finito
             if (haVinto()) {
                 giocoFinito = true;
-                System.out.println("Complimenti, hai indovinato la parola!");
+                System.out.print("\nComplimenti, hai indovinato la parola!");
             } else if (haPerso()) {
                 giocoFinito = true;
-                System.out.println("Spiacente, hai esaurito i tentativi. Sei impiccato!");
+                System.err.print("\nSpiacente, hai esaurito i tentativi. Sei impiccato!");
             }
         }
 
@@ -87,10 +128,10 @@ public class Gioco {
             }
         }
 
-        System.out.println("\nParola da indovinare: " + parolaCorrente);
-        System.out.println("Tentativi rimasti: " + tentativiRimasti);
-        System.out.println("Lettere indovinate: " + lettereIndovinate);
-        System.out.println("Lettere errate: " + lettereErrate);
+        System.out.print("\nParola da indovinare: " + parolaCorrente);
+        System.out.print("\nTentativi rimasti: " + tentativiRimasti);
+        System.out.print("\nLettere indovinate: " + lettereIndovinate);
+        System.out.print("\nLettere errate: " + lettereErrate);
     }
 
     private boolean haVinto() {

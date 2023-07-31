@@ -1,4 +1,4 @@
-import java.util.HashMap;
+import java.util.*;
 
 public class Lingua {
     private String linguaAttiva;
@@ -53,8 +53,8 @@ public class Lingua {
 
     }
 
-    public String traduci(String lingua, String chiave) {
-        HashMap<String, String> traduzioneLingua = traduzioni.get(lingua);
+    public String traduci(String chiave) {
+        HashMap<String, String> traduzioneLingua = traduzioni.get(linguaAttiva);
         if (traduzioneLingua != null) {
             return traduzioneLingua.getOrDefault(chiave, "Traduzione non disponibile");
         } else {

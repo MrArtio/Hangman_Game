@@ -1,10 +1,10 @@
 import java.io.*;
-import java.util.ArrayList;
+import java.util.*;
 
 public class GestioneFile {
-    private final String nomeFileGiocatori = "Dati/giocatori.txt";
-    private final String nomeFileProgressi = "Dati/progressi.txt";
-    private final String nomeFileLingue = "Dati/lingue.txt";
+    private final String nomeFileGiocatori = "src/dati/giocatori.txt";
+    private final String nomeFileProgressi = "src/dati/progressi.txt";
+    private final String nomeFileLingue = "src/dati/lingue.txt";
 
     public void creaFileGiocatori() {
         try {

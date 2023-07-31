@@ -1,4 +1,4 @@
-import java.util.Scanner;
+import java.util.*;
 
 public class Main {
     public static void main(String[] args) {
@@ -20,11 +20,16 @@ public class Main {
             System.out.print("\n");
             System.out.print("\nScelta: ");
 
+            while (!scanner.hasNextInt()) {
+                scanner.nextLine(); // Consuma l'input non numerico
+                System.out.println("Inserire un numero valido.");
+            }
             int scelta = scanner.nextInt();
+            scanner.nextLine();
 
             switch (scelta) {
                 case 1:
-                    System.out.print("Inserisci il tuo nome: ");
+                    System.out.print("\nInserisci il tuo nome: ");
                     scanner.nextLine(); // Consuma il carattere new line rimasto dopo nextInt()
                     nomeGiocatore = scanner.nextLine();
                     gioco.gioca();
@@ -33,24 +38,25 @@ public class Main {
                     break;
 
                 case 2:
-                    System.out.print("Inserisci il tuo nome: ");
+                    System.out.print("\nInserisci il tuo nome: ");
                     scanner.nextLine(); // Consuma il carattere new line rimasto dopo nextInt()
                     nomeGiocatore = scanner.nextLine();
                     int punteggio = gestioneFile.caricaProgressoGiocatore(nomeGiocatore);
-                    System.out.println("Il tuo punteggio: " + punteggio);
+                    System.out.print("\nIl tuo punteggio: " + punteggio);
                     break;
 
                 case 3:
-                    System.out.println("Lingue disponibili: " + gestioneFile.caricaLingueDisponibili());
-                    System.out.print("Inserisci la lingua scelta: ");
+                    gestioneFile.creaFileLingue();
+                    System.out.print("\nLingue disponibili: " + gestioneFile.caricaLingueDisponibili());
+                    System.out.print("\nInserisci la lingua scelta: ");
                     linguaScelta = scanner.next();
 
                     // Verifica se la lingua scelta è disponibile
                     if (gestioneFile.caricaLingueDisponibili().contains(linguaScelta)) {
                         lingua.cambiaLingua(linguaScelta);
-                        System.out.println("Lingua cambiata in: " + linguaScelta);
+                        System.out.print("\nLingua cambiata in: " + linguaScelta);
                     } else {
-                        System.out.println("Lingua non disponibile. Riprova.");
+                        System.out.print("\nLingua non disponibile. Riprova.");
                     }
                     break;
 
@@ -59,13 +65,11 @@ public class Main {
                     break;
 
                 default:
-                    System.out.println("Scelta non valida, riprova.");
+                    System.out.print("\nScelta non valida, riprova.");
                     break;
             }
 
         } while (!esci);
-
-        System.out.println("Grazie per aver giocato! Arrivederci.");
-        scanner.close();
+        System.out.print("\nGrazie per aver giocato! Arrivederci.");
     }
 }
