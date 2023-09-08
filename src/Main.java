@@ -46,18 +46,19 @@ public class Main {
                     break;
 
                 case 3:
-                    gestioneFile.creaFileLingue();
-                    System.out.print("\nLingue disponibili: " + gestioneFile.caricaLingueDisponibili());
-                    System.out.print("\nInserisci la lingua scelta: ");
-                    linguaScelta = scanner.next();
-
-                    // Verifica se la lingua scelta è disponibile
-                    if (gestioneFile.caricaLingueDisponibili().contains(linguaScelta)) {
-                        lingua.cambiaLingua(linguaScelta);
-                        System.out.print("\nLingua cambiata in: " + linguaScelta);
-                    } else {
-                        System.out.print("\nLingua non disponibile. Riprova.");
-                    }
+                    System.err.print("\nFunzione non presente, in arrivo...");
+//                    gestioneFile.creaFileLingue();
+//                    System.out.print("\nLingue disponibili: " + gestioneFile.caricaLingueDisponibili());
+//                    System.out.print("\nInserisci la lingua scelta: ");
+//                    linguaScelta = scanner.next();
+//
+//                    // Verifica se la lingua scelta è disponibile
+//                    if (gestioneFile.caricaLingueDisponibili().contains(linguaScelta)) {
+//                        lingua.cambiaLingua(linguaScelta);
+//                        System.out.print("\nLingua cambiata in: " + linguaScelta);
+//                    } else {
+//                        System.out.print("\nLingua non disponibile. Riprova.");
+//                    }
                     break;
 
                 case 4:
