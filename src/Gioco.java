@@ -92,13 +92,13 @@ public class Gioco {
             }
 
             if (lettereIndovinate.contains(lettera) || lettereErrate.contains(lettera)) {
-                System.err.print("\nHai già inserito questa lettera. Riprova.");
+                System.err.print("\nHai già inserito questa lettera. Riprova.\n");
                 continue;
             }
 
             if (parolaSegreta.contains(String.valueOf(lettera))) {
                 lettereIndovinate.add(lettera);
-                System.out.print("\nBravo! Hai indovinato una lettera.");
+                System.out.print("\nBravo! Hai indovinato una lettera.\n");
             } else {
                 lettereErrate.add(lettera);
                 System.err.print("\nSpiacente, la lettera non è presente nella parola.\n");
@@ -108,7 +108,7 @@ public class Gioco {
             // Verifica se il gioco è finito
             if (haVinto()) {
                 giocoFinito = true;
-                System.out.print("\nComplimenti, hai indovinato la parola!");
+                System.out.print("\nComplimenti, hai indovinato la parola!\n");
             } else if (haPerso()) {
                 giocoFinito = true;
                 System.err.print("\nSpiacente, hai esaurito i tentativi. Sei impiccato!");

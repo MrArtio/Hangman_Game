@@ -9,7 +9,7 @@ public class Main {
 
         String nomeGiocatore;
         String linguaScelta;
-        boolean esci = false;
+        int scelta;
 
         do {
             System.out.print("\nSeleziona l'azione:");
@@ -21,11 +21,10 @@ public class Main {
             System.out.print("\nScelta: ");
 
             while (!scanner.hasNextInt()) {
+                System.out.print("\nInserire un numero valido: ");
                 scanner.nextLine(); // Consuma l'input non numerico
-                System.out.println("Inserire un numero valido.");
             }
-            int scelta = scanner.nextInt();
-            scanner.nextLine();
+            scelta = scanner.nextInt();
 
             switch (scelta) {
                 case 1:
@@ -61,16 +60,12 @@ public class Main {
 //                    }
                     break;
 
-                case 4:
-                    esci = true;
-                    break;
-
                 default:
-                    System.out.print("\nScelta non valida, riprova.");
+                    System.out.print("\nScelta non valida, riprova.\n");
                     break;
             }
 
-        } while (!esci);
-        System.out.print("\nGrazie per aver giocato! Arrivederci.");
+        } while (scelta == 4);
+        System.out.print("\n\nGrazie per aver giocato! Arrivederci.");
     }
 }
